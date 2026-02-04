@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { BlockchainService } from './blockchain.service';
+import { MockUSDCService } from './mockusdc.service';
 import {
   MintDto,
   TransferDto,
@@ -7,11 +7,11 @@ import {
   ApproveDto,
   AllowanceDto,
   BalanceOfDto,
-} from './dto/blockchain.dto';
+} from './dto/mockusdc.dto';
 
-@Controller('blockchain')
-export class BlockchainController {
-  constructor(private readonly blockchainService: BlockchainService) {}
+@Controller('mockusdc')
+export class MockUSDCController {
+  constructor(private readonly mockUSDCService: MockUSDCService) {}
 
   // ==================== INFORMACIÓN GENERAL ====================
 
@@ -22,11 +22,11 @@ export class BlockchainController {
   @Get('info')
   async getTokenInfo() {
     const [name, symbol, decimals, totalSupply, owner] = await Promise.all([
-      this.blockchainService.getName(),
-      this.blockchainService.getSymbol(),
-      this.blockchainService.getDecimals(),
-      this.blockchainService.getTotalSupply(),
-      this.blockchainService.getOwner(),
+      this.mockUSDCService.getName(),
+      this.mockUSDCService.getSymbol(),
+      this.mockUSDCService.getDecimals(),
+      this.mockUSDCService.getTotalSupply(),
+      this.mockUSDCService.getOwner(),
     ]);
 
     return {
@@ -44,7 +44,7 @@ export class BlockchainController {
    */
   @Get('wallet')
   getWalletInfo() {
-    return this.blockchainService.getWalletInfo();
+    return this.mockUSDCService.getWalletInfo();
   }
 
   // ==================== FUNCIONES DE LECTURA ====================
@@ -55,7 +55,7 @@ export class BlockchainController {
    */
   @Get('balance/:address')
   async getBalance(@Param('address') address: string) {
-    const balance = await this.blockchainService.balanceOf(address);
+    const balance = await this.mockUSDCService.balanceOf(address);
     return {
       address,
       balance,
@@ -70,7 +70,7 @@ export class BlockchainController {
    */
   @Get('allowance')
   async getAllowance(@Query() query: AllowanceDto) {
-    const allowance = await this.blockchainService.allowance(
+    const allowance = await this.mockUSDCService.allowance(
       query.owner,
       query.spender,
     );
@@ -89,9 +89,9 @@ export class BlockchainController {
   @Get('faucet/status/:address')
   async getFaucetStatus(@Param('address') address: string) {
     const [canUse, timeRemaining, lastMintTime] = await Promise.all([
-      this.blockchainService.canUseFaucet(address),
-      this.blockchainService.getTimeUntilNextFaucet(address),
-      this.blockchainService.getLastMintTime(address),
+      this.mockUSDCService.canUseFaucet(address),
+      this.mockUSDCService.getTimeUntilNextFaucet(address),
+      this.mockUSDCService.getLastMintTime(address),
     ]);
 
     return {
@@ -113,7 +113,7 @@ export class BlockchainController {
    */
   @Post('faucet')
   async useFaucet() {
-    return await this.blockchainService.faucet();
+    return await this.mockUSDCService.faucet();
   }
 
   /**
@@ -122,7 +122,7 @@ export class BlockchainController {
    */
   @Post('mint')
   async mint(@Body() mintDto: MintDto) {
-    return await this.blockchainService.mint(mintDto.to, mintDto.amount);
+    return await this.mockUSDCService.mint(mintDto.to, mintDto.amount);
   }
 
   /**
@@ -131,7 +131,7 @@ export class BlockchainController {
    */
   @Post('transfer')
   async transfer(@Body() transferDto: TransferDto) {
-    return await this.blockchainService.transfer(
+    return await this.mockUSDCService.transfer(
       transferDto.to,
       transferDto.amount,
     );
@@ -143,7 +143,7 @@ export class BlockchainController {
    */
   @Post('approve')
   async approve(@Body() approveDto: ApproveDto) {
-    return await this.blockchainService.approve(
+    return await this.mockUSDCService.approve(
       approveDto.spender,
       approveDto.amount,
     );
@@ -155,6 +155,6 @@ export class BlockchainController {
    */
   @Post('burn')
   async burn(@Body() burnDto: BurnDto) {
-    return await this.blockchainService.burn(burnDto.amount);
+    return await this.mockUSDCService.burn(burnDto.amount);
   }
 }

@@ -19,7 +19,7 @@ npm run start:dev
 
 ```bash
 # cURL
-curl http://localhost:3000/blockchain/info
+curl http://localhost:3000/mockusdc/info
 ```
 
 **Respuesta esperada:**
@@ -39,10 +39,10 @@ curl http://localhost:3000/blockchain/info
 
 ```bash
 # cURL
-curl http://localhost:3000/blockchain/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+curl http://localhost:3000/mockusdc/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
 
 # PowerShell
-Invoke-WebRequest -Uri "http://localhost:3000/blockchain/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
+Invoke-WebRequest -Uri "http://localhost:3000/mockusdc/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
 ```
 
 **Respuesta:**
@@ -60,7 +60,7 @@ Invoke-WebRequest -Uri "http://localhost:3000/blockchain/balance/0x742d35Cc6634C
 
 ```bash
 # cURL
-curl http://localhost:3000/blockchain/faucet/status/0xTuDireccion
+curl http://localhost:3000/mockusdc/faucet/status/0xTuDireccion
 ```
 
 **Respuesta:**
@@ -80,10 +80,10 @@ curl http://localhost:3000/blockchain/faucet/status/0xTuDireccion
 
 ```bash
 # cURL
-curl "http://localhost:3000/blockchain/allowance?owner=0xOwnerAddress&spender=0xSpenderAddress"
+curl "http://localhost:3000/mockusdc/allowance?owner=0xOwnerAddress&spender=0xSpenderAddress"
 
 # PowerShell
-Invoke-RestMethod -Uri "http://localhost:3000/blockchain/allowance?owner=0xOwnerAddress&spender=0xSpenderAddress"
+Invoke-RestMethod -Uri "http://localhost:3000/mockusdc/allowance?owner=0xOwnerAddress&spender=0xSpenderAddress"
 ```
 
 ---
@@ -91,7 +91,7 @@ Invoke-RestMethod -Uri "http://localhost:3000/blockchain/allowance?owner=0xOwner
 ### 5️⃣ Ver Información de Wallet Conectada
 
 ```bash
-curl http://localhost:3000/blockchain/wallet
+curl http://localhost:3000/mockusdc/wallet
 ```
 
 **Respuesta (sin wallet configurada):**
@@ -131,10 +131,10 @@ CHAIN_ID=11155111
 
 ```bash
 # cURL
-curl -X POST http://localhost:3000/blockchain/faucet
+curl -X POST http://localhost:3000/mockusdc/faucet
 
 # PowerShell
-Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/faucet"
+Invoke-RestMethod -Method POST -Uri "http://localhost:3000/mockusdc/faucet"
 ```
 
 **Respuesta:**
@@ -159,7 +159,7 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/faucet"
 
 ```bash
 # cURL
-curl -X POST http://localhost:3000/blockchain/transfer \
+curl -X POST http://localhost:3000/mockusdc/transfer \
   -H "Content-Type: application/json" \
   -d "{\"to\":\"0xRecipientAddress\",\"amount\":\"100\"}"
 
@@ -169,7 +169,7 @@ $body = @{
     amount = "100"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/transfer" `
+Invoke-RestMethod -Method POST -Uri "http://localhost:3000/mockusdc/transfer" `
   -ContentType "application/json" -Body $body
 ```
 
@@ -199,7 +199,7 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/transfer" 
 
 ```bash
 # cURL
-curl -X POST http://localhost:3000/blockchain/approve \
+curl -X POST http://localhost:3000/mockusdc/approve \
   -H "Content-Type: application/json" \
   -d "{\"spender\":\"0xSpenderAddress\",\"amount\":\"500\"}"
 
@@ -209,7 +209,7 @@ $body = @{
     amount = "500"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/approve" `
+Invoke-RestMethod -Method POST -Uri "http://localhost:3000/mockusdc/approve" `
   -ContentType "application/json" -Body $body
 ```
 
@@ -227,7 +227,7 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/approve" `
 
 ```bash
 # cURL
-curl -X POST http://localhost:3000/blockchain/burn \
+curl -X POST http://localhost:3000/mockusdc/burn \
   -H "Content-Type: application/json" \
   -d "{\"amount\":\"50\"}"
 
@@ -236,7 +236,7 @@ $body = @{
     amount = "50"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/burn" `
+Invoke-RestMethod -Method POST -Uri "http://localhost:3000/mockusdc/burn" `
   -ContentType "application/json" -Body $body
 ```
 
@@ -253,7 +253,7 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/burn" `
 
 ```bash
 # cURL
-curl -X POST http://localhost:3000/blockchain/mint \
+curl -X POST http://localhost:3000/mockusdc/mint \
   -H "Content-Type: application/json" \
   -d "{\"to\":\"0xRecipientAddress\",\"amount\":\"5000\"}"
 
@@ -263,7 +263,7 @@ $body = @{
     amount = "5000"
 } | ConvertTo-Json
 
-Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/mint" `
+Invoke-RestMethod -Method POST -Uri "http://localhost:3000/mockusdc/mint" `
   -ContentType "application/json" -Body $body
 ```
 
@@ -284,13 +284,13 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/mint" `
 ### Configurar Peticiones GET
 
 1. Método: `GET`
-2. URL: `http://localhost:3000/blockchain/info`
+2. URL: `http://localhost:3000/mockusdc/info`
 3. Click en "Send"
 
 ### Configurar Peticiones POST
 
 1. Método: `POST`
-2. URL: `http://localhost:3000/blockchain/transfer`
+2. URL: `http://localhost:3000/mockusdc/transfer`
 3. Headers: `Content-Type: application/json`
 4. Body (raw JSON):
 ```json
@@ -310,7 +310,7 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:3000/blockchain/mint" `
 ```javascript
 // GET - Obtener balance
 async function getBalance(address) {
-  const response = await fetch(`http://localhost:3000/blockchain/balance/${address}`);
+  const response = await fetch(`http://localhost:3000/mockusdc/balance/${address}`);
   const data = await response.json();
   console.log(data);
 }
@@ -322,7 +322,7 @@ getBalance('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
 ```javascript
 // POST - Transferir tokens
 async function transferTokens(to, amount) {
-  const response = await fetch('http://localhost:3000/blockchain/transfer', {
+  const response = await fetch('http://localhost:3000/mockusdc/transfer', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -341,7 +341,7 @@ transferTokens('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb', '100');
 ```javascript
 // POST - Usar faucet
 async function useFaucet() {
-  const response = await fetch('http://localhost:3000/blockchain/faucet', {
+  const response = await fetch('http://localhost:3000/mockusdc/faucet', {
     method: 'POST'
   });
   
@@ -384,34 +384,34 @@ const useFaucet = async () => {
 
 ### Paso 1: Verificar que el servidor esté corriendo
 ```bash
-curl http://localhost:3000/blockchain/info
+curl http://localhost:3000/mockusdc/info
 ```
 
 ### Paso 2: Ver tu wallet
 ```bash
-curl http://localhost:3000/blockchain/wallet
+curl http://localhost:3000/mockusdc/wallet
 ```
 
 ### Paso 3: Usar el faucet para obtener tokens
 ```bash
-curl -X POST http://localhost:3000/blockchain/faucet
+curl -X POST http://localhost:3000/mockusdc/faucet
 ```
 
 ### Paso 4: Verificar tu balance
 ```bash
-curl http://localhost:3000/blockchain/balance/TU_DIRECCION
+curl http://localhost:3000/mockusdc/balance/TU_DIRECCION
 ```
 
 ### Paso 5: Transferir tokens a otra dirección
 ```bash
-curl -X POST http://localhost:3000/blockchain/transfer \
+curl -X POST http://localhost:3000/mockusdc/transfer \
   -H "Content-Type: application/json" \
   -d '{"to":"0xOtraDireccion","amount":"50"}'
 ```
 
 ### Paso 6: Verificar el nuevo balance
 ```bash
-curl http://localhost:3000/blockchain/balance/TU_DIRECCION
+curl http://localhost:3000/mockusdc/balance/TU_DIRECCION
 ```
 
 ---

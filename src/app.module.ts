@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BlockchainModule } from './blockchain/blockchain.module';
+import { MockUSDCModule } from './MockUSDC/mockusdc.module';
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { BlockchainModule } from './blockchain/blockchain.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    BlockchainModule,
+    MockUSDCModule,
   ],
   controllers: [AppController],
   providers: [AppService],

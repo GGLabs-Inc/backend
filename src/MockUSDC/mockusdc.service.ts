@@ -4,8 +4,8 @@ import { ethers } from 'ethers';
 import MockUSDCABI from './contracts/MockUSDC-ABI.json';
 
 @Injectable()
-export class BlockchainService {
-  private readonly logger = new Logger(BlockchainService.name);
+export class MockUSDCService {
+  private readonly logger = new Logger(MockUSDCService.name);
   private provider: ethers.JsonRpcProvider;
   private contract: ethers.Contract;
   private contractWithSigner?: ethers.Contract;
@@ -16,9 +16,9 @@ export class BlockchainService {
   }
 
   private initializeProvider() {
-    const rpcUrl = this.configService.get<string>('blockchain.rpcUrl');
-    const contractAddress = this.configService.get<string>('blockchain.contractAddress');
-    const privateKey = this.configService.get<string>('blockchain.privateKey');
+    const rpcUrl = this.configService.get<string>('mockusdc.rpcUrl');
+    const contractAddress = this.configService.get<string>('mockusdc.contractAddress');
+    const privateKey = this.configService.get<string>('mockusdc.privateKey');
 
     if (!rpcUrl) {
       throw new Error('RPC_URL no está configurado en .env');

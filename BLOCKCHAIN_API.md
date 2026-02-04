@@ -7,7 +7,7 @@
 
 ### 📊 Información General
 
-#### `GET /blockchain/info`
+#### `GET /mockusdc/info`
 Obtener información del token MockUSDC
 ```json
 {
@@ -19,7 +19,7 @@ Obtener información del token MockUSDC
 }
 ```
 
-#### `GET /blockchain/wallet`
+#### `GET /mockusdc/wallet`
 Obtener información de la wallet conectada
 ```json
 {
@@ -32,10 +32,10 @@ Obtener información de la wallet conectada
 
 ### 🔍 Consultas (Funciones de Lectura)
 
-#### `GET /blockchain/balance/:address`
+#### `GET /mockusdc/balance/:address`
 Ver balance de una dirección
 ```bash
-GET /blockchain/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+GET /mockusdc/balance/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
 ```
 Respuesta:
 ```json
@@ -46,16 +46,16 @@ Respuesta:
 }
 ```
 
-#### `GET /blockchain/allowance?owner=0x...&spender=0x...`
+#### `GET /mockusdc/allowance?owner=0x...&spender=0x...`
 Ver cantidad aprobada para gastar
 ```bash
-GET /blockchain/allowance?owner=0xAAA&spender=0xBBB
+GET /mockusdc/allowance?owner=0xAAA&spender=0xBBB
 ```
 
-#### `GET /blockchain/faucet/status/:address`
+#### `GET /mockusdc/faucet/status/:address`
 Ver si una dirección puede usar el faucet
 ```bash
-GET /blockchain/faucet/status/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+GET /mockusdc/faucet/status/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
 ```
 Respuesta:
 ```json
@@ -74,10 +74,10 @@ Respuesta:
 
 > ⚠️ **Requieren `PRIVATE_KEY` configurada en `.env`**
 
-#### `POST /blockchain/faucet`
+#### `POST /mockusdc/faucet`
 Usar el faucet (obtener 1000 USDC gratis, 1 vez por hora)
 ```bash
-POST /blockchain/faucet
+POST /mockusdc/faucet
 ```
 Respuesta:
 ```json
@@ -90,10 +90,10 @@ Respuesta:
 }
 ```
 
-#### `POST /blockchain/mint`
+#### `POST /mockusdc/mint`
 Mintear tokens (solo owner)
 ```bash
-POST /blockchain/mint
+POST /mockusdc/mint
 Content-Type: application/json
 
 {
@@ -102,10 +102,10 @@ Content-Type: application/json
 }
 ```
 
-#### `POST /blockchain/transfer`
+#### `POST /mockusdc/transfer`
 Transferir tokens
 ```bash
-POST /blockchain/transfer
+POST /mockusdc/transfer
 Content-Type: application/json
 
 {
@@ -114,10 +114,10 @@ Content-Type: application/json
 }
 ```
 
-#### `POST /blockchain/approve`
+#### `POST /mockusdc/approve`
 Aprobar que otra dirección gaste tus tokens
 ```bash
-POST /blockchain/approve
+POST /mockusdc/approve
 Content-Type: application/json
 
 {
@@ -126,10 +126,10 @@ Content-Type: application/json
 }
 ```
 
-#### `POST /blockchain/burn`
+#### `POST /mockusdc/burn`
 Quemar tokens
 ```bash
-POST /blockchain/burn
+POST /mockusdc/burn
 Content-Type: application/json
 
 {
@@ -187,16 +187,16 @@ El servidor estará disponible en `http://localhost:3000`
 
 ```bash
 # Ver información del token
-curl http://localhost:3000/blockchain/info
+curl http://localhost:3000/mockusdc/info
 
 # Ver balance
-curl http://localhost:3000/blockchain/balance/0xYourAddress
+curl http://localhost:3000/mockusdc/balance/0xYourAddress
 
 # Usar faucet
-curl -X POST http://localhost:3000/blockchain/faucet
+curl -X POST http://localhost:3000/mockusdc/faucet
 
 # Transferir tokens
-curl -X POST http://localhost:3000/blockchain/transfer \
+curl -X POST http://localhost:3000/mockusdc/transfer \
   -H "Content-Type: application/json" \
   -d '{"to":"0xRecipientAddress","amount":"100"}'
 ```
