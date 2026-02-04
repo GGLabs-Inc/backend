@@ -1,0 +1,374 @@
+{
+  "info": {
+    "name": "YellowMeter Trading API",
+    "description": "Colección completa de endpoints para el DEX de trading de YellowMeter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "traderAddress",
+      "value": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+      "type": "string"
+    },
+    {
+      "key": "signature",
+      "value": "0xabc123...",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "health"]
+        },
+        "description": "Verificar estado del servicio de trading"
+      }
+    },
+    {
+      "name": "2. Deposit Margin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trader\": \"{{traderAddress}}\",\n  \"amount\": 1000,\n  \"txHash\": \"0xtest123abc\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/deposit",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "deposit"]
+        },
+        "description": "Depositar USDC como margen para trading"
+      }
+    },
+    {
+      "name": "3. Get Balance",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/balance/{{traderAddress}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "balance", "{{traderAddress}}"]
+        },
+        "description": "Obtener balance de un trader (total, disponible, usado)"
+      }
+    },
+    {
+      "name": "4. Get All Markets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/markets",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "markets"]
+        },
+        "description": "Listar todos los mercados disponibles con precios"
+      }
+    },
+    {
+      "name": "5. Get Market Data",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/market/ETH-USDC",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "market", "ETH-USDC"]
+        },
+        "description": "Obtener datos de un mercado específico"
+      }
+    },
+    {
+      "name": "6. Get Orderbook",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/orderbook?market=BTC-USDC&depth=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orderbook"],
+          "query": [
+            {
+              "key": "market",
+              "value": "BTC-USDC"
+            },
+            {
+              "key": "depth",
+              "value": "20"
+            }
+          ]
+        },
+        "description": "Obtener libro de órdenes (bids y asks)"
+      }
+    },
+    {
+      "name": "7. Create MARKET Order - LONG",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trader\": \"{{traderAddress}}\",\n  \"market\": \"ETH-USDC\",\n  \"type\": \"MARKET\",\n  \"side\": \"LONG\",\n  \"size\": 1000,\n  \"leverage\": 10,\n  \"signature\": \"{{signature}}\",\n  \"nonce\": \"{{$timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orders"]
+        },
+        "description": "Crear orden MARKET para comprar (LONG) con apalancamiento"
+      }
+    },
+    {
+      "name": "8. Create LIMIT Order - SHORT",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trader\": \"{{traderAddress}}\",\n  \"market\": \"BTC-USDC\",\n  \"type\": \"LIMIT\",\n  \"side\": \"SHORT\",\n  \"size\": 5000,\n  \"leverage\": 20,\n  \"price\": 43000,\n  \"signature\": \"{{signature}}\",\n  \"nonce\": \"{{$timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orders"]
+        },
+        "description": "Crear orden LIMIT para vender (SHORT) a precio específico"
+      }
+    },
+    {
+      "name": "9. Get Trader Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/orders?trader={{traderAddress}}&activeOnly=true",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orders"],
+          "query": [
+            {
+              "key": "trader",
+              "value": "{{traderAddress}}"
+            },
+            {
+              "key": "market",
+              "value": "ETH-USDC",
+              "disabled": true
+            },
+            {
+              "key": "activeOnly",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Obtener órdenes de un trader (filtrar por mercado y estado)"
+      }
+    },
+    {
+      "name": "10. Get Order by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/orders/order_1706889600_abc123",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orders", "order_1706889600_abc123"]
+        },
+        "description": "Obtener detalles de una orden específica"
+      }
+    },
+    {
+      "name": "11. Cancel Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": \"order_1706889600_abc123\",\n  \"trader\": \"{{traderAddress}}\",\n  \"signature\": \"{{signature}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/orders/cancel",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "orders", "cancel"]
+        },
+        "description": "Cancelar una orden pendiente"
+      }
+    },
+    {
+      "name": "12. Get Trader Positions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/positions?trader={{traderAddress}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "positions"],
+          "query": [
+            {
+              "key": "trader",
+              "value": "{{traderAddress}}"
+            },
+            {
+              "key": "market",
+              "value": "ETH-USDC",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "Obtener todas las posiciones abiertas de un trader"
+      }
+    },
+    {
+      "name": "13. Get Position by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/positions/pos_abc123",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "positions", "pos_abc123"]
+        },
+        "description": "Obtener detalles de una posición específica"
+      }
+    },
+    {
+      "name": "14. Update Position (Stop Loss/Take Profit)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"positionId\": \"pos_abc123\",\n  \"trader\": \"{{traderAddress}}\",\n  \"stopLoss\": 2200,\n  \"takeProfit\": 2600,\n  \"signature\": \"{{signature}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/positions/update",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "positions", "update"]
+        },
+        "description": "Actualizar stop loss y take profit de una posición"
+      }
+    },
+    {
+      "name": "15. Close Position (Full)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"positionId\": \"pos_abc123\",\n  \"trader\": \"{{traderAddress}}\",\n  \"percentage\": 100,\n  \"signature\": \"{{signature}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/positions/close",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "positions", "close"]
+        },
+        "description": "Cerrar posición completamente (100%)"
+      }
+    },
+    {
+      "name": "16. Close Position (Partial)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"positionId\": \"pos_abc123\",\n  \"trader\": \"{{traderAddress}}\",\n  \"percentage\": 50,\n  \"signature\": \"{{signature}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/positions/close",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "positions", "close"]
+        },
+        "description": "Cerrar posición parcialmente (50%)"
+      }
+    },
+    {
+      "name": "17. Get Recent Trades",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/trading/trades/ETH-USDC?limit=50",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "trades", "ETH-USDC"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "50"
+            }
+          ]
+        },
+        "description": "Obtener trades recientes de un mercado"
+      }
+    },
+    {
+      "name": "18. Withdraw Margin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trader\": \"{{traderAddress}}\",\n  \"amount\": 500,\n  \"signature\": \"{{signature}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/trading/withdraw",
+          "host": ["{{baseUrl}}"],
+          "path": ["trading", "withdraw"]
+        },
+        "description": "Retirar margen disponible"
+      }
+    }
+  ]
+}

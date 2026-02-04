@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { MockUSDCModule } from './MockUSDC/mockusdc.module';
 import { SessionSafeModule } from './SessionSafe/sessionsafe.module';
 import { ChessModule } from './Chess/chess.module';
+import { TradingModule } from './Trading/trading.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ChessModule } from './Chess/chess.module';
     MockUSDCModule,
     SessionSafeModule,
     ChessModule,
+    TradingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
