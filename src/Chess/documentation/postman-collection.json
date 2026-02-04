@@ -1,0 +1,246 @@
+{
+  "info": {
+    "name": "Chess Module - YellowMeter OS",
+    "description": "Colección de endpoints para el módulo de ajedrez P2P con apuestas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "chess-yellowmeter-2026",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/chess/health",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "health"]
+            },
+            "description": "Verificar estado del servicio de ajedrez"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Game Management",
+      "item": [
+        {
+          "name": "Create Game",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"walletAddress\": \"{{player1_address}}\",\n  \"wagerAmount\": 10,\n  \"signature\": \"{{signature}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/start",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "start"]
+            },
+            "description": "Crear una nueva partida de ajedrez"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Game Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/chess/game/{{game_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "game", "{{game_id}}"]
+            },
+            "description": "Obtener información completa de una partida"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Player Games",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/chess/player-games?address={{player1_address}}",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "player-games"],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "{{player1_address}}"
+                }
+              ]
+            },
+            "description": "Listar todas las partidas de un jugador"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gameplay",
+      "item": [
+        {
+          "name": "Make Move",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gameId\": \"{{game_id}}\",\n  \"walletAddress\": \"{{player1_address}}\",\n  \"move\": \"e2e4\",\n  \"nonce\": 1,\n  \"signature\": \"{{signature}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/move",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "move"]
+            },
+            "description": "Realizar un movimiento en la partida"
+          },
+          "response": []
+        },
+        {
+          "name": "Claim Victory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gameId\": \"{{game_id}}\",\n  \"walletAddress\": \"{{player1_address}}\",\n  \"finalStateSignature\": \"{{signature}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/claim-victory",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "claim-victory"]
+            },
+            "description": "Reclamar victoria tras checkmate"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Example Moves Sequence",
+      "item": [
+        {
+          "name": "Move 1 - e2e4 (White)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gameId\": \"{{game_id}}\",\n  \"walletAddress\": \"{{player1_address}}\",\n  \"move\": \"e2e4\",\n  \"nonce\": 1,\n  \"signature\": \"0x_mock_signature_1\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/move",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "move"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Move 2 - e7e5 (Black)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gameId\": \"{{game_id}}\",\n  \"walletAddress\": \"{{player2_address}}\",\n  \"move\": \"e7e5\",\n  \"nonce\": 2,\n  \"signature\": \"0x_mock_signature_2\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/move",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "move"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Move 3 - Nf3 (White)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gameId\": \"{{game_id}}\",\n  \"walletAddress\": \"{{player1_address}}\",\n  \"move\": \"Nf3\",\n  \"nonce\": 3,\n  \"signature\": \"0x_mock_signature_3\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chess/move",
+              "host": ["{{base_url}}"],
+              "path": ["chess", "move"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "ws_url",
+      "value": "ws://localhost:3000/chess",
+      "type": "string"
+    },
+    {
+      "key": "game_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "player1_address",
+      "value": "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+      "type": "string"
+    },
+    {
+      "key": "player2_address",
+      "value": "0x9876543210987654321098765432109876543210",
+      "type": "string"
+    },
+    {
+      "key": "signature",
+      "value": "0x_mock_signature_for_testing_",
+      "type": "string"
+    }
+  ]
+}
