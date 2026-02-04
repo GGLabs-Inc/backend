@@ -7,10 +7,13 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
 import { ChessService } from './chess.service';
 import { MakeMoveDto, StartGameDto, ClaimVictoryDto } from './dto/chess.dto';
+
+// Importar tipos de Socket.io
+type Server = any;
+type Socket = any;
 
 /**
  * 🔌 WEBSOCKET GATEWAY PARA AJEDREZ

@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, Logger } from '@nestjs/common';
-import { Chess } from 'chess.js';
+const { Chess } = require('chess.js');
 import {
   ChessGame,
   ChessMove,
@@ -123,6 +123,10 @@ export class ChessService {
 
     // Actualizar canal
     const channel = this.gameChannels.get(gameId);
+    if (!channel) {
+      throw new BadRequestException('Game channel not found');
+    }
+    
     channel.player2Balance = game.wagerAmount;
     channel.lockedAmount = game.wagerAmount * 2;
     channel.isOpen = true;
@@ -174,6 +178,10 @@ export class ChessService {
 
     // 2. Verificar nonce del state channel
     const channel = this.gameChannels.get(dto.gameId);
+    if (!channel) {
+      throw new BadRequestException('Game channel not found');
+    }
+    
     if (dto.nonce !== channel.nonce + 1) {
       throw new BadRequestException(`Invalid nonce. Expected ${channel.nonce + 1}, got ${dto.nonce}`);
     }
@@ -302,7 +310,9 @@ export class ChessService {
    */
   getPlayerGames(walletAddress: string): ChessGame[] {
     const gameIds = this.playerGames.get(walletAddress.toLowerCase()) || [];
-    return gameIds.map((id) => this.activeGames.get(id)).filter(Boolean);
+    return gameIds
+      .map((id) => this.activeGames.get(id))
+      .filter((game): game is ChessGame => game !== undefined);
   }
 
   /**
