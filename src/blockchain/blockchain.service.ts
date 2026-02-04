@@ -75,7 +75,8 @@ export class BlockchainService {
    * Obtener los decimales del token
    */
   async getDecimals(): Promise<number> {
-    return await this.contract.decimals();
+    const decimals = await this.contract.decimals();
+    return Number(decimals);
   }
 
   /**
@@ -159,7 +160,7 @@ export class BlockchainService {
       return {
         success: true,
         transactionHash: tx.hash,
-        blockNumber: receipt.blockNumber,
+        blockNumber: Number(receipt.blockNumber),
         from: this.wallet!.address,
         amount: '1000 USDC',
       };
@@ -190,7 +191,7 @@ export class BlockchainService {
       return {
         success: true,
         transactionHash: tx.hash,
-        blockNumber: receipt.blockNumber,
+        blockNumber: Number(receipt.blockNumber),
         to,
         amount: `${amount} USDC`,
       };
@@ -221,7 +222,7 @@ export class BlockchainService {
       return {
         success: true,
         transactionHash: tx.hash,
-        blockNumber: receipt.blockNumber,
+        blockNumber: Number(receipt.blockNumber),
         from: this.wallet!.address,
         to,
         amount: `${amount} USDC`,
@@ -253,7 +254,7 @@ export class BlockchainService {
       return {
         success: true,
         transactionHash: tx.hash,
-        blockNumber: receipt.blockNumber,
+        blockNumber: Number(receipt.blockNumber),
         owner: this.wallet!.address,
         spender,
         amount: `${amount} USDC`,
@@ -285,7 +286,7 @@ export class BlockchainService {
       return {
         success: true,
         transactionHash: tx.hash,
-        blockNumber: receipt.blockNumber,
+        blockNumber: Number(receipt.blockNumber),
         from: this.wallet!.address,
         amount: `${amount} USDC`,
       };
