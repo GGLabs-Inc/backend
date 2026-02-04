@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MockUSDCModule } from './MockUSDC/mockusdc.module';
+import { SessionSafeModule } from './SessionSafe/sessionsafe.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { MockUSDCModule } from './MockUSDC/mockusdc.module';
       envFilePath: '.env',
     }),
     MockUSDCModule,
+    SessionSafeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
