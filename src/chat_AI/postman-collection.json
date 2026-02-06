@@ -1,0 +1,278 @@
+{
+  "info": {
+    "name": "AI Chat with Yellow Network",
+    "description": "API para chat de IA con pagos off-chain usando Yellow Network State Channels",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Health & Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "health"]
+            }
+          }
+        },
+        {
+          "name": "List Models",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/models",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "models"]
+            }
+          }
+        },
+        {
+          "name": "Get Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/stats",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Session Management",
+      "item": [
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAddress\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\",\n  \"depositAmount\": \"100000000\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/sessions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "sessions"]
+            }
+          }
+        },
+        {
+          "name": "Create Session Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAddress\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\",\n  \"expiry\": {{$timestamp}}000,\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/sessions/{{sessionId}}/session-key",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "sessions", "{{sessionId}}", "session-key"]
+            }
+          }
+        },
+        {
+          "name": "Get Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/sessions/{{sessionId}}/balance",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "sessions", "{{sessionId}}", "balance"]
+            }
+          }
+        },
+        {
+          "name": "Close Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAddress\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\",\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/sessions/{{sessionId}}/close",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "sessions", "{{sessionId}}", "close"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Queries",
+      "item": [
+        {
+          "name": "Query AI - GPT-4o",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"nonce\": 0,\n  \"modelId\": \"gpt-4o\",\n  \"prompt\": \"¿Qué es Yellow Network?\",\n  \"maxCost\": \"30000\",\n  \"timestamp\": {{$timestamp}}000,\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/query",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "query"]
+            }
+          }
+        },
+        {
+          "name": "Query AI - Claude Sonnet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"nonce\": 1,\n  \"modelId\": \"claude-sonnet-4.5\",\n  \"prompt\": \"Explica los state channels\",\n  \"maxCost\": \"30000\",\n  \"timestamp\": {{$timestamp}}000,\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/query",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "query"]
+            }
+          }
+        },
+        {
+          "name": "Query AI - Gemini",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"nonce\": 2,\n  \"modelId\": \"gemini-2.0-flash\",\n  \"prompt\": \"¿Cómo funcionan las session keys?\",\n  \"maxCost\": \"8000\",\n  \"timestamp\": {{$timestamp}}000,\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/query",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "query"]
+            }
+          }
+        },
+        {
+          "name": "Query AI - Deepseek",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"nonce\": 3,\n  \"modelId\": \"deepseek-chat\",\n  \"prompt\": \"¿Qué es el challenge-response?\",\n  \"maxCost\": \"5000\",\n  \"timestamp\": {{$timestamp}}000,\n  \"signature\": \"0x...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/query",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "query"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Get Messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/ai-chat/sessions/{{sessionId}}/messages?limit=50",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["ai-chat", "sessions", "{{sessionId}}", "messages"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "sessionId",
+      "value": "channel_xyz123",
+      "type": "string"
+    }
+  ]
+}

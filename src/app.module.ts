@@ -6,6 +6,7 @@ import { MockUSDCModule } from './MockUSDC/mockusdc.module';
 import { SessionSafeModule } from './SessionSafe/sessionsafe.module';
 import { ChessModule } from './Chess/chess.module';
 import { TradingModule } from './Trading/trading.module';
+import { ChatAiModule } from './chat_AI/chat-ai.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TradingModule } from './Trading/trading.module';
     SessionSafeModule,
     ChessModule,
     TradingModule,
+    ChatAiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
