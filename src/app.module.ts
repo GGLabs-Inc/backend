@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MockUSDCModule } from './MockUSDC/mockusdc.module';
-import { SessionSafeModule } from './SessionSafe/sessionsafe.module';
 import { ChessModule } from './Chess/chess.module';
 import { TradingModule } from './Trading/trading.module';
+import { YellowModule } from './Yellow/yellow.module';
+import { AIModule } from './AI/ai.module';
 
 @Module({
   imports: [
@@ -13,8 +13,8 @@ import { TradingModule } from './Trading/trading.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    MockUSDCModule,
-    SessionSafeModule,
+    YellowModule,
+    AIModule,
     ChessModule,
     TradingModule,
   ],
