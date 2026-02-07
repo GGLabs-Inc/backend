@@ -16,7 +16,7 @@ export class BlockchainListenerService implements OnModuleInit {
 
   // ⚙️ CONFIGURACIÓN - En producción, mover a ConfigModule
   private readonly RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
-  private readonly CONTRACT_ADDRESS = process.env.SESSION_SAFE_ADDRESS || '0x...';
+  private readonly CONTRACT_ADDRESS = process.env.SESSION_SAFE_ADDRESS;
   
   // ABI simplificado - Solo eventos relevantes
   private readonly CONTRACT_ABI = [
@@ -42,6 +42,11 @@ export class BlockchainListenerService implements OnModuleInit {
    */
   private async initializeProvider() {
     try {
+      if (!this.CONTRACT_ADDRESS || !ethers.isAddress(this.CONTRACT_ADDRESS)) {
+        this.logger.warn(`⚠️ Blockchain Listener skipped: Invalid CONTRACT_ADDRESS (${this.CONTRACT_ADDRESS})`);
+        return;
+      }
+
       this.provider = new ethers.JsonRpcProvider(this.RPC_URL);
       
       // Verificar conexión
