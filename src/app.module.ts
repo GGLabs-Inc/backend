@@ -6,6 +6,8 @@ import { ChessModule } from './Chess/chess.module';
 import { TradingModule } from './Trading/trading.module';
 import { YellowModule } from './Yellow/yellow.module';
 import { AIModule } from './AI/ai.module';
+import { MessagingModule } from './Messaging/messaging.module';
+import { SupabaseModule } from './supabase/supabase.module';
 
 @Module({
   imports: [
@@ -13,10 +15,12 @@ import { AIModule } from './AI/ai.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    SupabaseModule,
     YellowModule,
     AIModule,
     ChessModule,
     TradingModule,
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
