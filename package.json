@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/platform-socket.io": "^11.1.13",
     "@nestjs/websockets": "^11.1.13",
+    "@supabase/supabase-js": "^2.95.3",
     "@types/chess.js": "^0.13.7",
     "axios": "^1.13.4",
     "chess.js": "^1.4.0",
